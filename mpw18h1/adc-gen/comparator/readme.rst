@@ -18,7 +18,9 @@ Comparator Topologies
 **Double-tail Latch-type**
 
 .. image:: readme_image/dualtail.png
+  :width: 300px
 
 **StrongArm**
 
 .. image:: readme_image/strongarm.png
+  :width: 450px
