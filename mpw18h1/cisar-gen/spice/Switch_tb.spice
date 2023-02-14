@@ -1,0 +1,41 @@
+** sch_path: /home/andylithia/openmpw/Project-Shizuha/GF180_14b/xschem/Switch_tb.sch
+**.subckt Switch_tb
+XM1 Vin net2 Vout Vout nfet_03v3 L=0.28u W=80u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+V3 net4 GND 1.5
+.save i(v3)
+V4 net1 GND 1.5
+.save i(v4)
+V1 net2 net3 2.5
+.save i(v1)
+V2 Vout GND 1.5
+.save i(v2)
+Vim1 net3 net1 0
+.save i(vim1)
+R1 Vin net3 0.1 m=1
+**** begin user architecture code
+
+.include /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/design.ngspice
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice cap_mim
+* .lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice res_statistical
+
+
+
+.options savecurrents
+.param f=15e6
+.dc v4 0 3 0.01
+.control
+save all
+run
+display
+plot (vin-vout)/(-i(vim1))
+.endc
+
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end

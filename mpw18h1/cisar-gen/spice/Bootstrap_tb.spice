@@ -1,0 +1,100 @@
+** sch_path: /home/andylithia/openmpw/Project-Shizuha/GF180_14b/xschem/Bootstrap_tb.sch
+**.subckt Bootstrap_tb
+x1 VDD VGate CLK Vin CLKn GND Bootstrapper
+XM1 Vin VGate Vout GND nfet_03v3 L=0.28u W=80u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+C1 Vout GND 3p m=1
+V1 net1 GND PULSE(3 0 0 10p 10p 2n 33n)
+.save i(v1)
+V2 VDD GND 3
+.save i(v2)
+V3 net2 GND 1.5
+.save i(v3)
+V4 Vin GND SIN(1.5 1.5 {f})
+.save i(v4)
+XM4 CLK net1 VDD VDD pfet_03v3 L=0.28u W=3u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM5 CLK net1 GND GND nfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+**** begin user architecture code
+
+.include /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/design.ngspice
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice cap_mim
+* .lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice res_statistical
+
+
+
+.param f=15e6
+.tran 0.1n {10/f}
+.control
+save all
+run
+display
+plot vin vout
+plot vout vgate
+plot clk clkn
+.endc
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  Bootstrapper.sym # of pins=6
+** sym_path: /home/andylithia/openmpw/Project-Shizuha/GF180_14b/xschem/Bootstrapper.sym
+** sch_path: /home/andylithia/openmpw/Project-Shizuha/GF180_14b/xschem/Bootstrapper.sch
+.subckt Bootstrapper avdd vgate clk vin clkn agnd
+*.iopin avdd
+*.ipin clk
+*.iopin vgate
+*.iopin agnd
+*.iopin vin
+*.opin clkn
+XM1 avdd vgate C1 C1 pfet_03v3 L=0.28u W=10u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM2 vg1 clk avdd avdd pfet_03v3 L=0.28u W=1u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM3 vgate vg1 C1 C1 pfet_03v3 L=0.28u W=10u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM4 clkn clk avdd avdd pfet_03v3 L=0.28u W=10u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM5 clkn clk agnd agnd nfet_03v3 L=0.28u W=4u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM6 C2 clkn agnd agnd nfet_03v3 L=0.28u W=5u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM7 vg1 clk C2 agnd nfet_03v3 L=0.28u W=2u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM8 C2 vgate vg1 agnd nfet_03v3 L=0.28u W=10u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM9 vin vgate C2 agnd nfet_03v3 L=0.28u W=10u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM10 net1 avdd vgate agnd nfet_03v3 L=0.28u W=20u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+XM11 agnd clkn net1 agnd nfet_03v3 L=0.28u W=20u nf=1 ad='int((nf+1)/2) * W/nf * 0.18u' as='int((nf+2)/2) * W/nf * 0.18u'
++ pd='2*int((nf+1)/2) * (W/nf + 0.18u)' ps='2*int((nf+2)/2) * (W/nf + 0.18u)' nrd='0.18u / W' nrs='0.18u / W'
++ sa=0 sb=0 sd=0 m=1
+**** begin user architecture code
+
+* A workaround
+XC1 C1 C2 cap_mim_2f0fF c_length=25e-6 c_width=30e-6 m=1
+
+
+**** end user architecture code
+.ends
+
+.GLOBAL GND
+.end
