@@ -15,33 +15,47 @@
 | `ldo10`       | Yes           | No             | No        | 159                | 10                  |
 
 
+
+**Device details and dimensions**
+
+
 PT_UNIT_CELL
 
-Devices Syntax:
+Device Syntax:
+
 X0 Drain Gate Source Body sky130_fd_pr__pfet_g5v0d10v5
+
 X1 Drain Gate Source Body sky130_fd_pr__nfet_g5v0d10v5
 
 Devices:
+
 X0 VREG CTRL vpwr vpb sky130_fd_pr__pfet_g5v0d10v5 W = 0.75u , L = 0.5u (Switch)
+
 X1 vgnd VREG vgnd vnb sky130_fd_pr__nfet_g5v0d10v5 W = 0.75u , L = 0.5u (MOS Cap)
 
 
 PT_UNIT_CELL_W
 
 Device Syntax:
+
 X0 Drain Gate Source Body  sky130_fd_pr__nfet_g5v0d10v5
+
 X1 Source Gate Drain Body  sky130_fd_pr__nfet_03v3_nvt
 
 Devices:
+
 X0 vgnd VREG vgnd vnb sky130_fd_pr__nfet_g5v0d10v5 W = 0.75u , L = 0.5u (MOS Cap)
+
 X1 VREG CTRL vpwr vnb sky130_fd_pr__nfet_03v3_nvt    W = 1u ,  L = 0.5u (Switch)
 
 Aux PMOS
 
 Device Syntax:
+
 X0 Drain Gate Source Body sky130_fd_pr__pfet_g5v0d10v5
 
 Device:
+
 X0 VREG cmp_out vpwr vpb sky130_fd_pr__pfet_g5v0d10v5 W = 1u ,  L = 0.5u
 
 
