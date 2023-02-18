@@ -1,0 +1,59 @@
+** sch_path: /home/stanleylin/Project-GF180MCU/xschem/comparator_miyahara.sch
+.subckt comparator_miyahara i_p_amplify gf180mcu_gnd i_inp i_inn vdd o_outp o_outn
+*.PININFO i_p_amplify:B gf180mcu_gnd:B i_inp:B i_inn:B vdd:B o_outp:B o_outn:B
+M1 x_sb i_inp net1 gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=8
+M2 x_rb i_inn net1 gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=8
+M3 net1 i_p_amplify gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=12
+M4 x_sb i_p_amplify vdd vdd pfet_03v3 L=280n W=2u nf=2 m=4
+M5 x_rb i_p_amplify vdd vdd pfet_03v3 L=280n W=2u nf=2 m=4
+M6 xx_outp x_sb gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M7 xx_outp xx_outn gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M8 xx_outn xx_outp gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M9 xx_outn x_rb gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M10 xx_outp xx_outn net2 vdd pfet_03v3 L=280n W=2u nf=2 m=2
+M11 xx_outn xx_outp net3 vdd pfet_03v3 L=280n W=2u nf=2 m=2
+M12 net2 x_sb gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M14 net3 x_rb gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=1
+M15 net2 x_sb vdd vdd pfet_03v3 L=280n W=2u nf=2 m=4
+M16 net3 x_rb vdd vdd pfet_03v3 L=280n W=2u nf=2 m=4
+
+M13 net1 gf180mcu_gnd gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=280n W=2u nf=2 m=4
+
+*x1 vdd net5 o_outn gf180mcu_gnd lib_inv2
+M101 o_outn net5 gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=4
+M102 o_outn net5 vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=4
+
+*x2 vdd net4 o_outp gf180mcu_gnd lib_inv2
+M103 o_outp net4 gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=4
+M104 o_outp net4 vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=4
+
+*x3 vdd xx_outp net4 gf180mcu_gnd lib_inv1
+M105 net4 xx_outp gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=1
+M106 net4 xx_outp vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=1
+
+*x4 vdd xx_outn net5 gf180mcu_gnd lib_inv1
+M107 net5 xx_outn gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=1
+M108 net5 xx_outn vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=1
+
+.ends
+
+* expanding   symbol:  lib_inv2.sym # of pins=4
+** sym_path: /home/stanleylin/Project-GF180MCU/xschem/lib_inv2.sym
+** sch_path: /home/stanleylin/Project-GF180MCU/xschem/lib_inv2.sch
+*.subckt lib_inv2 vdd IN OUT gf180mcu_gnd
+*.PININFO IN:I OUT:O vdd:I gf180mcu_gnd:I
+*M1 OUT IN gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=4
+*M2 OUT IN vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=4
+*.ends
+
+
+* expanding   symbol:  lib_inv1.sym # of pins=4
+** sym_path: /home/stanleylin/Project-GF180MCU/xschem/lib_inv1.sym
+** sch_path: /home/stanleylin/Project-GF180MCU/xschem/lib_inv1.sch
+*.subckt lib_inv1 vdd IN OUT gf180mcu_gnd
+*.PININFO IN:I OUT:O vdd:I gf180mcu_gnd:I
+*M1 OUT IN gf180mcu_gnd gf180mcu_gnd nfet_03v3 L=0.28u W=2u nf=1 m=1
+*M2 OUT IN vdd vdd pfet_03v3 L=0.28u W=4u nf=1 m=1
+*.ends
+
+.end
