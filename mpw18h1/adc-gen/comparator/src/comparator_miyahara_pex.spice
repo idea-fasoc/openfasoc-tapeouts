@@ -3,7 +3,7 @@
 .option scale=0.01u
 
 .subckt comparator_miyahara o_outp o_outn gf180mcu_gnd I_INP I_INN vdd I_P_AMPLIFY
-X0 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=237600 pd=12544.5 as=0 ps=0 w=100 l=28
+XM0 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=237600 pd=12544.5 as=0 ps=0 w=100 l=28
 X1 m1_n2273_3656# a_n2183_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
 X2 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
 X3 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
