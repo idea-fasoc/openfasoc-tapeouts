@@ -92,10 +92,14 @@ XM10 vout net1 vdd vdd pfet_03v3 L=0.7u W=100u nf=5 ad='int((nf+1)/2) * W/nf * 0
 + sa=0 sb=0 sd=0 m=4
 
 *****Load Cap
-C1 vout GND 1p m=1
+*C1 vout GND 1p m=1
 
 *****Miller Compensation cap
-C2 net2 vout 3p m=1
 
-R1 net1 net2 200 m=1
+XC1 net2 vout cap_mim_2f0_m4m5_noshield c_width=40e-6 c_length=40e-6 m=1
+
+
+XR1 net1 net2 vss npolyf_u r_width=4e-6 r_length=2.3e-6 m=1
+
+
 
