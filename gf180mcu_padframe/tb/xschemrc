@@ -24,8 +24,6 @@
 # AL. xschem settings
 ################################################################################
 #
-#
-
 # Define PDK_ROOT and PDKPATH in your environment settings
 # 
 set PDK_ROOT $env(PDK_ROOT)
@@ -41,7 +39,7 @@ set netlist_dir .
 set autotrim_wires 1
 set to_pdf {ps2pdf -dAutoRotatePages=/None}
 set editor {gvim -f -geometry 90x28}
-set bespice_listen_port 2022
+set bespice_listen_port 2023
 lappend tcl_files ${XSCHEM_SHAREDIR}/ngspice_backannotate.tcl
 set toolbar_visible 1
 set tabbed_interface 1
