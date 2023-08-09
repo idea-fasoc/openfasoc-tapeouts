@@ -1,0 +1,49 @@
+** sch_path:
+*+ /home/andylithia/openmpw/openfasoc-tapeouts/gf180mcu_padframe/tb/digital_io_tristate.sch
+**.subckt digital_io_tristate
+V1 DVDD GND 3
+.save i(v1)
+V2 VDD GND 3
+.save i(v2)
+V3 DVSS GND 0
+.save i(v3)
+V4 VSS GND 0
+.save i(v4)
+V5 OE GND PULSE(0 3 1000n 100p 100p 1000n 2000n)
+.save i(v5)
+V7 IE GND 3
+.save i(v7)
+V11 SL GND 0
+.save i(v11)
+V13 CS GND 3
+.save i(v13)
+**** begin user architecture code
+
+
+.tran 100p 4000n
+.save all
+.control
+run
+display
+plot OE PAD0 Y0
+plot OE PAD1 Y1
+.endc
+
+
+
+.include /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/design.ngspice
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice diode_typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice res_typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice mimcap_typical
+.lib /home/andylithia/openmpw/pdk_1/gf180mcuC/libs.tech/ngspice/sm141064.ngspice moscap_typical
+
+
+.include ../gf180mcu_fd_io.spice
+XDUT0 VDD CS DVDD DVSS IE OE PAD0 VDD VSS VSS VSS SL VDD VSS Y0 gf180mcu_fd_io__bi_t
+XDUT1 VSS CS DVDD DVSS IE OE PAD1 VSS VSS VSS VDD SL VDD VSS Y1 gf180mcu_fd_io__bi_t
+
+**** end user architecture code
+**.ends
+.GLOBAL GND
+.end
