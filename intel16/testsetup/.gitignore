@@ -1,0 +1,23 @@
+# General
+*.swp
+*.log*
+*.out
+*.vpd
+*.old
+*.txt
+.nfs*
+logs
+csrc
+dve.daidir
+simv.daidir
+dve
+DVEfiles
+ucli.key
+simv
+
+# VCS
+*rebuild.tcl
+vc_hdrs.h
+
+# Python
+__pycache__

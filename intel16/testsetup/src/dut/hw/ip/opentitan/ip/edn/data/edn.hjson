@@ -1,0 +1,476 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{ name: "edn",
+  clocking: [{clock: "clk_i", reset: "rst_ni"}],
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+  interrupt_list: [
+    { name: "edn_cmd_req_done"
+      desc: "Asserted when a software CSRNG request has completed."}
+    { name: "edn_fatal_err"
+      desc: "Asserted when a FIFO error occurs."}
+  ],
+  alert_list: [
+    { name: "recov_alert",
+      desc: "This alert is triggered when entropy bus data matches on consecutive clock cycles."
+    }
+    { name: "fatal_alert",
+      desc: '''
+            This alert triggers (i) if an illegal state machine state is reached, or
+            (ii) if a fatal integrity failure is detected on the TL-UL bus.
+            ''',
+    }
+  ],
+  inter_signal_list: [
+    { struct:  "csrng",  // csrng_req_t, csrng_rsp_t
+      type:    "req_rsp",
+      name:    "csrng_cmd",
+      act:     "req",
+      width:   "1",
+      package: "csrng_pkg",
+      desc:    '''
+               EDN supports a signal CSRNG application interface.
+               ''',
+    }
+    { struct:  "edn",  // edn_req_t, edn_rsp_t
+      type:    "req_rsp",
+      name:    "edn",
+      act:     "rsp",
+      width:   "8",
+      default: "'0",
+      desc:    '''
+               The collection of peripheral ports supported by edn. The width (4)
+               indicates the number of peripheral ports on a single instance.
+               Due to limitations in the parametrization of top-level interconnects
+               this value is not currently parameterizable.  However, the number
+               of peripheral ports may change in a future revision.
+               ''',
+      package: "edn_pkg",
+    }
+  ],
+  countermeasures: [
+    { name: "CONFIG.REGWEN"
+      desc: "Registers are protected from writes."
+    }
+    { name: "CONFIG.MUBI"
+      desc: "Registers have multi-bit encoded fields."
+    }
+    { name: "MAIN_SM.FSM.SPARSE"
+      desc: "The EDN main state machine uses a sparse state encoding."
+    }
+    { name: "ACK_SM.FSM.SPARSE"
+      desc: "The EDN ACK state machine uses a sparse state encoding."
+    }
+    { name: "CTR.REDUN"
+      desc: "Counter hardening on the generate command maximum requests counter."
+    }
+    { name: "MAIN_SM.CTR.LOCAL_ESC"
+      desc: "A mismatch detected inside any EDN counter moves the main state machine into a terminal error state."
+    }
+    { name: "CS_RDATA.BUS.CONSISTENCY"
+      desc: "Comparison on successive bus values for genbits returned from csrng that will distribute over the endpoint buses."
+    }
+    { name: "TILE_LINK.BUS.INTEGRITY"
+      desc: "Tilelink end-to-end bus integrity scheme."
+    }
+  ],
+
+  regwidth: "32",
+  registers: [
+    { name: "REGWEN",
+      desc: "Register write enable for all control registers",
+      swaccess: "rw0c",
+      hwaccess: "none",
+      fields: [
+        { bits: "0",
+          desc: '''
+                When true, the CTRL can be written by software.
+                When false, this field read-only. Defaults true, write zero to clear.
+                Note that this needs to be cleared after initial configuration at boot in order to
+                lock in the listed register settings.
+                '''
+          resval: 1
+        },
+      ]
+    },
+    { name: "CTRL",
+      desc: "EDN control register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      regwen: "REGWEN",
+      tags: [// Keep HW from affecting other registers.
+                "excl:CsrAllTests:CsrExclWrite"]
+     fields: [
+        { bits: "3:0",
+          name: "EDN_ENABLE",
+          mubi: true,
+          desc: '''
+                Setting this field to kMultiBitBool4True enables the EDN module. The modules of the
+                entropy complex may only be enabled and disabled in a specific order, see
+                Programmers Guide for details.
+                '''
+          resval: false
+        },
+        { bits: "7:4",
+          name: "BOOT_REQ_MODE",
+          mubi: true,
+          desc: '''
+                Setting this field to kMultiBitBool4True will enable the feature where the EDN block
+                will automatically send a boot-time request to the CSRNG application interface.
+                The purpose of this feature is to request entropy as fast as possible after reset,
+                and during chip boot-time.
+                 '''
+          resval: false
+        },
+        { bits: "11:8",
+          name: "AUTO_REQ_MODE",
+          mubi: true,
+          desc: '''
+                Setting this field to kMultiBitBool4True will enable the EDN block to automatically
+                send another request to CSRNG application interface. It is assumed that a CSRNG
+                instantiate command will be issued using the !!SW_CMD_REQ register interface.
+                When this command has an command ack returned from CSRNG, a
+                new generate command will be send out again without software intervention. It is
+                expected that the generate command will be sent repeatedly so that a continuous
+                supply of entropy can be delivered to the endpoints. Reseed commands will be sent
+                on a programmable basic between generate commands.
+                The !!GENERATE_CMD, !!RESEED_CMD, and !!MAX_NUM_REQS_BETWEEN_RESEEDS registers must
+                set up before the !!SW_CMD_REQ register command is issued.
+                 '''
+          resval: false
+        },
+        { bits: "15:12",
+          name: "CMD_FIFO_RST",
+          mubi: true,
+          desc: '''
+                Setting this field to kMultiBitBool4True clears the two command FIFOs: the
+                RESEED_CMD FIFO and the GENERATE_CMD FIFO. This field must be
+                set to the reset state by software before any further commands can be issued to
+                these FIFOs.
+                '''
+          resval: false
+        },
+      ]
+    },
+    { name: "BOOT_INS_CMD",
+      desc: "EDN boot instantiate command register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      tags: [// Keep HW from affecting other registers.
+                "excl:CsrAllTests:CsrExclWrite"]
+      fields: [
+        { bits: "31:0",
+          name: "BOOT_INS_CMD",
+          desc: '''
+                This field is used as the value for Instantiate command at boot time.
+                '''
+         resval: 0x0000_0901
+        }
+      ]
+    },
+    { name: "BOOT_GEN_CMD",
+      desc: "EDN boot generate command register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      tags: [// Keep HW from affecting other registers.
+                "excl:CsrAllTests:CsrExclWrite"]
+      fields: [
+        { bits: "31:0",
+          name: "BOOT_GEN_CMD",
+          desc: '''
+                This field is used as the value for generate command at boot time.
+                '''
+         resval: 0x00ff_f003
+       }
+      ]
+    },
+    { name: "SW_CMD_REQ",
+      desc: "EDN csrng app command request register",
+      swaccess: "wo",
+      hwaccess: "hro",
+      hwext: "true",
+      hwqe: "true",
+      fields: [
+        { bits: "31:0",
+          name: "SW_CMD_REQ",
+          desc: '''
+                Any CSRNG action can be initiated by writing a CSRNG command to this
+                register. The application interface must wait for the "ack" to
+                return before issuing new commands. This interface is intended
+                to be controlled solely by software. If !!AUTO_REQ_MODE is set, this
+                register will have no effect on operation.
+                Note that CSRNG command format details can be found
+                in the CSRNG documentation.
+                '''
+        }
+      ]
+    },
+    { name: "SW_CMD_STS",
+      desc: "EDN command status register",
+      swaccess: "ro",
+      hwaccess: "hwo",
+      tags: [// Internal HW can modify status register
+                 "excl:CsrNonInitTests:CsrExclCheck"]
+      fields: [
+        { bits: "0",
+          name: "CMD_RDY",
+          desc: '''
+                This bit indicates when the command interface is ready to accept commands.
+                '''
+          resval: "0"
+        }
+        { bits: "1",
+          name: "CMD_STS",
+          desc: '''
+                This one bit field is the status code returned with the application command ack.
+                It is updated each time a command ack is asserted on the CSRNG interface.
+                0b0: Request completed successfully
+                0b1: Request completed with an error
+                '''
+          resval: "0"
+        }
+      ]
+    },
+    { name: "RESEED_CMD",
+      desc: "EDN csrng reseed command register",
+      swaccess: "wo",
+      hwaccess: "hro",
+      hwext: "true",
+      hwqe: "true",
+      fields: [
+        { bits: "31:0",
+          name: "RESEED_CMD",
+          desc: '''
+                Writing this register will fill a FIFO with up to 13 command words (32b words).
+                This FIFO will be used to automatically send out a reseed command to the CSRNG
+                application interface when in !!AUTO_REQ_MODE. This command will be sent only after
+                the MAX_NUM_REQS_BETWEEN_RESEEDS counter value has reached zero.
+
+                If more than 13 entires are written to the FIFO, the design will automatically generate
+                a fatal alert.
+
+                Note that CSRNG command format details can be found
+                in the CSRNG documentation.
+                '''
+        }
+      ]
+    },
+    { name: "GENERATE_CMD",
+      desc: "EDN csrng generate command register",
+      swaccess: "wo",
+      hwaccess: "hro",
+      hwext: "true",
+      hwqe: "true",
+      fields: [
+        { bits: "31:0",
+          name: "GENERATE_CMD",
+          desc: '''
+                Writing this register will fill a FIFO with up to 13 command words (32b words).
+                This FIFO will be used to automatically send out a generate command to the CSRNG
+                appl interface when in !!AUTO_REQ_MODE. This command will be sent only after
+                receiving a command ack from the previous command.
+
+                If more than 13 entires are written to the FIFO, the design will automatically generate
+                a fatal alert.
+
+                Note that CSRNG command format details can be found
+                in the CSRNG documentation.
+                '''
+        }
+      ]
+    },
+    { name: "MAX_NUM_REQS_BETWEEN_RESEEDS",
+      desc: "EDN maximum number of requests between reseeds register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      hwqe: "true",
+      fields: [
+        { bits: "31:0",
+          name: "MAX_NUM_REQS_BETWEEN_RESEEDS",
+          desc: '''
+                Setting this field will set the number of generate requests that can be made
+                to CSRNG before a reseed request is made. This value only has meaning when in
+                !!AUTO_REQ_MODE. This register supports a maximum of 2^32 requests between reseeds.
+                This register will be used by a counter that counts down, triggering an
+                automatic reseed when it reaches zero.
+                '''
+        }
+      ]
+    },
+    {
+      name: "RECOV_ALERT_STS",
+      desc: "Recoverable alert status register",
+      swaccess: "rw0c",
+      hwaccess: "hwo",
+          tags: [ // The internal HW can modify the error code registers
+                 "excl:CsrAllTests:CsrExclCheck"]
+      fields: [
+        { bits: "0",
+          name: "EDN_ENABLE_FIELD_ALERT",
+          desc: '''
+                This bit is set when the EDN_ENABLE field is set to an illegal value,
+                something other than kMultiBitBool4True or kMultiBitBool4False.
+                Writing a zero resets this status bit.
+                '''
+        }
+        { bits: "1",
+          name: "BOOT_REQ_MODE_FIELD_ALERT",
+          desc: '''
+                This bit is set when the BOOT_REQ_MODE field is set to an illegal value,
+                something other than kMultiBitBool4True or kMultiBitBool4False.
+                Writing a zero resets this status bit.
+                '''
+        }
+        { bits: "2",
+          name: "AUTO_REQ_MODE_FIELD_ALERT",
+          desc: '''
+                This bit is set when the !!AUTO_REQ_MODE field is set to an illegal value,
+                something other than kMultiBitBool4True or kMultiBitBool4False.
+                Writing a zero resets this status bit.
+                '''
+        }
+        { bits: "3",
+          name: "CMD_FIFO_RST_FIELD_ALERT",
+          desc: '''
+                This bit is set when the CMD_FIFO_RST field is set to an illegal value,
+                something other than kMultiBitBool4True or kMultiBitBool4False.
+                Writing a zero resets this status bit.
+                '''
+        }
+        { bits: "12",
+          name: "EDN_BUS_CMP_ALERT",
+          desc: '''
+                This bit is set when the interal entropy bus value is equal to the prior
+                valid value on the bus, indicating a possible attack.
+                Writing a zero resets this status bit.
+                '''
+        }
+      ]
+    },
+    {
+      name: "ERR_CODE",
+      desc: "Hardware detection of fatal error conditions status register",
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "0",
+          name: "SFIFO_RESCMD_ERR",
+          desc: '''
+                This bit will be set to one when an error has been detected for the
+                reseed command FIFO. The type of error is reflected in the type status
+                bits (bits 28 through 30 of this register).
+                When this bit is set, a fatal error condition will result.
+                '''
+        }
+        { bits: "1",
+          name: "SFIFO_GENCMD_ERR",
+          desc: '''
+                This bit will be set to one when an error has been detected for the
+                generate command FIFO. The type of error is reflected in the type status
+                bits (bits 28 through 30 of this register).
+                When this bit is set, a fatal error condition will result.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "2",
+          name: "SFIFO_OUTPUT_ERR",
+          desc: '''
+                This bit will be set to one when an error has been detected for the
+                output FIFO. The type of error is reflected in the type status
+                bits (bits 28 through 30 of this register).
+                When this bit is set, a fatal error condition will result.
+                '''
+        }
+        { bits: "20",
+          name: "EDN_ACK_SM_ERR",
+          desc: '''
+                This bit will be set to one when an illegal state has been detected for the
+                EDN ack stage state machine. This error will signal a fatal alert.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "21",
+          name: "EDN_MAIN_SM_ERR",
+          desc: '''
+                This bit will be set to one when an illegal state has been detected for the
+                EDN main stage state machine. This error will signal a fatal alert.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "22",
+          name: "EDN_CNTR_ERR",
+          desc: '''
+                This bit will be set to one when a hardened counter has detected an error
+                condition. This error will signal a fatal alert.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "28",
+          name: "FIFO_WRITE_ERR",
+          desc: '''
+                This bit will be set to one when any of the source bits (bits 0 through 1 of this
+                this register) are asserted as a result of an error pulse generated from
+                any full FIFO that has been recieved a write pulse.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "29",
+          name: "FIFO_READ_ERR",
+          desc: '''
+                This bit will be set to one when any of the source bits (bits 0 through 1 of this
+                this register) are asserted as a result of an error pulse generated from
+                any empty FIFO that has recieved a read pulse.
+                This bit will stay set until the next reset.
+                '''
+        }
+        { bits: "30",
+          name: "FIFO_STATE_ERR",
+          desc: '''
+                This bit will be set to one when any of the source bits (bits 0 through 1 of this
+                this register) are asserted as a result of an error pulse generated from
+                any FIFO where both the empty and full status bits are set.
+                This bit will stay set until the next reset.
+                '''
+        }
+      ]
+    },
+    { name: "ERR_CODE_TEST",
+      desc: "Test error conditions register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      hwqe: "true",
+      tags: [// Keep HW from affecting other registers.
+                "excl:CsrAllTests:CsrExclWrite"]
+      fields: [
+        {
+            bits: "4:0",
+            name: "ERR_CODE_TEST",
+            desc: '''
+                  Setting this field will set the bit number for which an error
+                  will be forced in the hardware. This bit number is that same one
+                  found in the !!ERR_CODE register. The action of writing this
+                  register will force an error pulse. The sole purpose of this
+                  register is to test that any error properly propagates to either
+                  an interrupt or an alert.
+                  '''
+        },
+      ]
+    },
+    { name: "MAIN_SM_STATE",
+      desc: "Main state machine state debug register",
+      swaccess: "ro",
+      hwaccess: "hwo",
+      fields: [
+        { bits: "8:0",
+          name: "MAIN_SM_STATE",
+          desc: '''This is the state of the EDN main state machine.
+                See the RTL file `edn_main_sm` for the meaning of the values.
+                '''
+          resval: 0x185
+        }
+      ]
+    },
+  ]
+}

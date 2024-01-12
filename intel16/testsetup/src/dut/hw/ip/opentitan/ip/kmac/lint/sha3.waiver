@@ -1,0 +1,23 @@
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+#
+# waiver file for SHA3
+
+#waive -rules {} -location {} -regexp {} -comment ""
+
+waive -rules {CLOCK_USE} -location {keccak_round.sv} -regexp {clk_i' is connected to 'keccak_2share' port} \
+      -comment "In EnMasking = 0, no clock is used in keccak round module"
+
+waive -rules {RESET_USE} -location {keccak_round.sv} -regexp {'rst_ni' is connected to} \
+      -comment "No reset is used if EnMasking = 0. connected to unused_* signal"
+
+waive -rules {TWO_STATE_TYPE} -location {keccak_2share.sv} \
+      -regexp {'index_z' is of two state} \
+      -comment "index_z behaves as constant"
+
+waive -rules {ARITH_CONTEXT} -location {sha3pad.sv} -regexp {.*Bitlength of arithmetic operation.*is self-determined in this context.*} \
+      -comment "Carry issue when determining the bit length."
+
+waive -rules {VAR_INDEX_RANGE} -location {keccak_2share.sv} -regexp {.*of length 32 excluding the sign bit is larger than the.*bits required to address.*} \
+      -comment "Indexing range does not match."

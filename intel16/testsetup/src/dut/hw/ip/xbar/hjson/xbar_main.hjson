@@ -1,0 +1,128 @@
+{
+  name: main
+  type: xbar
+  clock: clk_i
+  reset: rst_ni
+  clock_connections:
+  {
+    clk_i: sys
+  }
+  reset_connections:
+  {
+    rst_ni: sys
+  }
+  connections:
+  {
+    core:
+    [
+      instr
+      data
+      peri_device
+    ]
+    spi:
+    [
+      instr
+      data
+      peri_device
+    ]
+    jtag:
+    [
+      instr
+      data
+      peri_device
+    ]
+  }
+  nodes:
+  [
+    {
+      name: core
+      type: host
+      clock: clk_i
+      reset: rst_ni
+      xbar: true
+      pipeline: false
+      stub: false
+      inst_type: ""
+      req_fifo_pass: true
+      rsp_fifo_pass: true
+    }
+    {
+      name: spi
+      type: host
+      clock: clk_i
+      reset: rst_ni
+      xbar: true
+      pipeline: false
+      stub: false
+      inst_type: ""
+      req_fifo_pass: true
+      rsp_fifo_pass: true
+    }
+    {
+      name: jtag
+      type: host
+      clock: clk_i
+      reset: rst_ni
+      xbar: true
+      pipeline: false
+      stub: false
+      inst_type: ""
+      req_fifo_pass: true
+      rsp_fifo_pass: true
+    }
+    {
+      name: instr
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: instr
+      addr_range:
+      [
+        {
+          base_addr: 0x00000000
+          size_byte: 0x10000000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: data
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: data
+      addr_range:
+      [
+        {
+          base_addr: 0x20000000
+          size_byte: 0x10000000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: peri_device
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: peri_device
+      addr_range:
+      [
+        {
+          base_addr: 0x30000000
+          size_byte: 0x10000000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+  ]
+}
