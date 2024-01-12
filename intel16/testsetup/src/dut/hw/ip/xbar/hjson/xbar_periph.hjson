@@ -1,0 +1,130 @@
+{
+  name: periph
+  type: xbar
+  clock: clk_i
+  reset: rst_ni
+  clock_connections:
+  {
+    clk_i: sys
+  }
+  reset_connections:
+  {
+    rst_ni: sys
+  }
+  connections:
+  {
+    peri_host:
+    [
+      uart
+      gpio
+      spi
+      i2c
+      plic
+    ]
+  }
+  nodes:
+  [
+    {
+      name: peri_host
+      type: host
+      clock: clk_i
+      reset: rst_ni
+      xbar: true
+      pipeline: false
+      stub: false
+      inst_type: ""
+      req_fifo_pass: true
+      rsp_fifo_pass: true
+    }
+    {
+      name: uart
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: uart
+      addr_range:
+      [
+        {
+          base_addr: 0x30000000
+          size_byte: 0x10000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: gpio
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: gpio
+      addr_range:
+      [
+        {
+          base_addr: 0x30010000
+          size_byte: 0x10000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: spi
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: spi
+      addr_range:
+      [
+        {
+          base_addr: 0x30020000
+          size_byte: 0x10000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: i2c
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: i2c
+      addr_range:
+      [
+        {
+          base_addr: 0x30030000
+          size_byte: 0x10000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+    {
+      name: plic
+      type: device
+      clock: clk_i
+      reset: rst_ni
+      pipeline: false
+      inst_type: plic
+      addr_range:
+      [
+        {
+          base_addr: 0x30050000
+          size_byte: 0x10000
+        }
+      ]
+      xbar: false
+      stub: false
+      req_fifo_pass: true
+    }
+  ]
+}

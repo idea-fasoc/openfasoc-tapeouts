@@ -1,0 +1,29 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{
+  name: "usbdev"
+  // TODO: remove the common testplans if not applicable
+  import_testplans: ["hw/dv/tools/dvsim/testplans/csr_testplan.hjson",
+                     "hw/dv/tools/dvsim/testplans/mem_testplan.hjson",
+                     "hw/dv/tools/dvsim/testplans/intr_test_testplan.hjson",
+                     "hw/dv/tools/dvsim/testplans/tl_device_access_types_testplan.hjson",
+                     "usbdev_sec_cm_testplan.hjson"]
+  testpoints: [
+    {
+      name: smoke
+      desc: '''**Goal**: Smoke test accessing a major datapath in USBDEV.
+
+            **Stimulus**: Describe the stimulus procedure.
+
+            **Checks**": Describe the self-check procedure.
+            - add bullets as needed
+            - second bullet\
+              describe second bullet
+
+            Start a new paragraph.'''
+      stage: V1
+      tests: ["usbdev_smoke"]
+    }
+  ]
+}

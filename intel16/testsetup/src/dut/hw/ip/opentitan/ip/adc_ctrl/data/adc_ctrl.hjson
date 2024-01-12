@@ -1,0 +1,332 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{ name: "adc_ctrl",
+  clocking: [
+    {clock: "clk_i", reset: "rst_ni", primary: true},
+    {clock: "clk_aon_i", reset: "rst_aon_ni"}
+  ]
+  bus_interfaces: [
+    { protocol: "tlul", direction: "device" }
+  ],
+  inter_signal_list: [
+    { struct: "adc_ast",
+      type: "req_rsp",
+      act: "req",
+      name: "adc",
+      package: "ast_pkg",
+    },
+    { struct: "logic",
+      type: "uni",
+      act: "req",
+      name: "wkup_req",
+      package: "",
+    }
+  ],
+  interrupt_list: [
+    { name: "match_done",
+      desc: "ADC match or measurement event done",
+    }
+  ],
+  alert_list: [
+    { name: "fatal_fault",
+      desc: '''
+      This fatal alert is triggered when a fatal TL-UL bus integrity fault is detected.
+      '''
+    }
+  ],
+  wakeup_list: [
+    { name: "wkup_req",
+      desc: "ADC wakeup request",
+    }
+  ],
+  param_list: [
+    { name:    "NumAdcFilter",
+      type:    "int",
+      default: "8",
+      desc:    "Number for ADC filters",
+      local:   "true",
+    }
+    { name:    "NumAdcChannel",
+      type:    "int",
+      default: "2",
+      desc:    "Number for ADC channels",
+      local:   "true",
+    }
+  ],
+  countermeasures: [
+    { name: "BUS.INTEGRITY",
+      desc: "End-to-end bus integrity scheme."
+    }
+  ]
+  regwidth: "32",
+  registers: [
+    { name: "adc_en_ctl",
+      desc: "ADC enable control register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      resval: "0",
+      async: "clk_aon_i",
+      fields: [
+        { bits: "0",
+          name: "adc_enable",
+          desc: "1'b0: to power down ADC and ADC_CTRL FSM will enter the reset state; 1'b1: to power up ADC and ADC_CTRL FSM will start",
+          tags: [
+            // Writes to ADC_EN_CTRL.ADC_ENABLE will cause side effects
+            "excl:CsrNonInitTests:CsrExclWrite:CsrExclWriteCheck"
+          ]
+        }
+        { bits: "1",
+          name: "oneshot_mode",
+          desc: "Oneshot mode does not care about the filter value. 1'b0: disable; 1'b1: enable",
+        }
+      ]
+    }
+    { name: "adc_pd_ctl",
+      desc: "ADC PowerDown(PD) control register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_aon_i",
+      fields: [
+        { bits: "0",
+          name: "lp_mode",
+          desc: "1'b0: adc_pd is disabled, use adc_sample_ctl. 1'b1: adc_pd is enabled, use both adc_lp_sample_ctl & adc_sample_ctl",
+          resval: "0",
+        }
+        { bits: "7:4",
+          name: "pwrup_time",
+          desc: '''
+            ADC power up time, measured in always on clock cycles.
+            After power up time is reached, the ADC controller needs one additional cycle before an ADC channel is selected for access.
+          '''
+          resval: "6",
+        }
+        { bits: "31:8",
+          name: "wakeup_time",
+          desc: "How often FSM wakes up from ADC PD mode to take a sample, measured in always on clock cycles.",
+          resval: "1600",
+        }
+      ]
+    }
+    { name: "adc_lp_sample_ctl",
+      desc: "ADC Low-Power(LP) sample control register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_aon_i",
+      fields: [
+        { bits: "7:0",
+          name: "lp_sample_cnt",
+          desc: '''
+            The number of samples in low-power mode when the low-power mode is enabled.
+            After the programmed number is met, ADC won't be powered down any more.
+            This value must be 1 or larger.
+            ''',
+          resval: "4",
+        }
+      ],
+    }
+    { name: "adc_sample_ctl",
+      desc: "ADC sample control register",
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_aon_i",
+      resval: "155",
+      fields: [
+        { bits: "15:0",
+          name: "np_sample_cnt",
+          desc: '''
+            The number of samples in normal-power mode to meet the debounce spec.
+            Used after the low-power mode condition is met or in the normal power mode.
+            This value must be 1 or larger.
+          ''',
+        }
+      ]
+    }
+    { name: "adc_fsm_rst",
+      desc: "ADC FSM reset control",
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_aon_i",
+      resval: "0",
+      fields: [
+        { bits: "0",
+          name: "rst_en",
+          desc: "1'b0: Normal functional mode. 1'b1: SW to reset all the FSMs and timers",
+        }
+      ]
+    }
+    { multireg: {
+        name: "adc_chn0_filter_ctl",
+        desc: '''ADC channel0 filter range
+
+              Up to 8 filters can be configured per channel and each filter has an associated [min, max] range.
+              The condition bit then defines whether the sample values of that channel need to lie within the range or outside to create a match.
+              The filter range bounds can be configured with a granularity of 2.148mV.
+              ''',
+        count: "NumAdcFilter",
+        cname: "ADC_CTRL",
+        swaccess: "rw",
+        hwaccess: "hro",
+        async: "clk_aon_i",
+        resval: "0",
+        fields: [
+          { bits: "11:2",
+            name: "min_v",
+            desc: "10-bit for chn0 filter min value ",
+          }
+          { bits: "12",
+            name: "cond",
+            desc: "1-bit for the condition; 1'b0 means min<=ADC<=max, 1'b1 means ADC>max or ADC<min ",
+          }
+          { bits: "27:18",
+            name: "max_v",
+            desc: "10-bit for chn0 filter max value ",
+          },
+          { bits: "31",
+            name: "EN",
+            desc: "Enable for filter",
+          }
+        ],
+      }
+    }
+
+    { multireg: {
+        name: "adc_chn1_filter_ctl",
+        desc: '''ADC channel1 filter range
+
+              Up to 8 filters can be configured per channel and each filter has an associated [min, max] range.
+              The condition bit then defines whether the sample values of that channel need to lie within the range or outside to create a match.
+              The filter range bounds can be configured with a granularity of 2.148mV.
+              ''',
+        count: "NumAdcFilter",
+        cname: "ADC_CTRL",
+        swaccess: "rw",
+        hwaccess: "hro",
+        async: "clk_aon_i",
+        resval: "0",
+        fields: [
+          { bits: "11:2",
+            name: "min_v",
+            desc: "10-bit for chn0 filter min value ",
+          }
+          { bits: "12",
+            name: "cond",
+            desc: "1-bit for the condition; 1'b0 means min<=ADC<=max, 1'b1 means ADC>max or ADC<min ",
+          }
+          { bits: "27:18",
+            name: "max_v",
+            desc: "10-bit for chn0 filter max value ",
+          },
+          { bits: "31",
+            name: "EN",
+            desc: "Enable for filter",
+          }
+        ],
+      }
+    },
+
+    { multireg: {
+        name: "adc_chn_val",
+        desc: "ADC value sampled on channel",
+        count: "NumAdcChannel",
+        cname: "ADC_CTRL",
+        swaccess: "ro",
+        hwaccess: "hwo",
+        async: "clk_aon_i",
+        resval: "0",
+        fields: [
+          { bits: "1:0",
+            name: "adc_chn_value_ext",
+            desc: "2-bit extension; RO 0",
+          }
+          { bits: "11:2",
+            name: "adc_chn_value",
+            desc: "Latest ADC value sampled on channel. each step is 2.148mV",
+          }
+          { bits: "17:16",
+            name: "adc_chn_value_intr_ext",
+            desc: "2-bit extension; RO 0",
+          }
+          { bits: "27:18",
+            name: "adc_chn_value_intr",
+            desc: "ADC value sampled on channel when the interrupt is raised(debug cable is attached or disconnected), each step is 2.148mV",
+          }
+        ],
+      }
+    }
+
+    { name: "adc_wakeup_ctl",
+      desc: '''
+        Enable filter matches as wakeups
+      ''',
+      swaccess: "rw",
+      hwaccess: "hro",
+      async: "clk_aon_i",
+      resval: "0",
+      fields: [
+        { bits: "NumAdcFilter-1:0",
+          name: "EN",
+          desc: "0: filter match wil not generate wakeupe; 1: filter match will generate wakeup",
+        }
+      ]
+    }
+
+    { name: "filter_status",
+      desc: '''
+        Adc filter match status
+
+        Indicates whether a particular filter has matched on all channels.
+      ''',
+      swaccess: "rw1c",
+      hwaccess: "hrw",
+      async: "clk_aon_i",
+      resval: "0",
+      fields: [
+        { bits: "7:0",
+          name: "COND",
+          desc: "0: filter condition is not met; 1: filter condition is met",
+        }
+      ]
+    }
+
+    { name: "adc_intr_ctl",
+      desc: '''
+        Interrupt enable controls.
+
+        adc_ctrl sends out only 1 interrupt, so this register controls
+        which internal sources are actually registered.
+
+        This register uses the same bit enumeration as !!ADC_INTR_STATUS
+      ''',
+      swaccess: "rw",
+      hwaccess: "hro",
+      resval: "0",
+      fields: [
+        { bits: "8:0",
+          name: "EN",
+          desc: "0: interrupt source is enabled; 1: interrupt source not enabled",
+        }
+      ]
+    }
+
+    { name: "adc_intr_status",
+      desc: "Debug cable internal status",
+      swaccess: "rw1c",
+      hwaccess: "hrw",
+      resval: "0",
+      tags: [ // the value of these regs is determined by the
+              // value on the pins, hence it cannot be predicted.
+              "excl:CsrNonInitTests:CsrExclCheck"],
+      fields: [
+        { bits: "NumAdcFilter-1:0",
+          name: "filter_match",
+          desc: "0: filter condition is not met; 1: filter condition is met",
+        }
+        { bits: "NumAdcFilter:NumAdcFilter",
+          name: "oneshot",
+          desc: "0: oneshot sample is not done ; 1: oneshot sample is done",
+        }
+      ]
+    }
+  ],
+}
