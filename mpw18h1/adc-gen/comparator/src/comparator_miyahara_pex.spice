@@ -1,0 +1,151 @@
+* NGSPICE file created from comparator_miyahara.ext - technology: gf180mcuC
+
+.option scale=0.01u
+
+.subckt comparator_miyahara o_outp o_outn gf180mcu_gnd I_INP I_INN vdd I_P_AMPLIFY
+XM0 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=237600 pd=12544.5 as=0 ps=0 w=100 l=28
+X1 m1_n2273_3656# a_n2183_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X2 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X3 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X4 gf180mcu_gnd gf180mcu_gnd m1_n66_490# gf180mcu_gnd nfet_03v3 ad=195200 pd=11168.5 as=0 ps=0 w=100 l=28
+X5 m1_n66_490# gf180mcu_gnd gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X6 vdd a_n3753_1803# o_outn vdd pfet_03v3 ad=0 pd=0 as=41600 ps=1808 w=400 l=28
+X7 o_outn a_n3753_1803# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X8 o_outn a_n3753_1803# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X9 vdd a_n3753_1803# o_outn vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X10 a_n578_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X11 vdd I_P_AMPLIFY a_n578_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X12 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X13 m1_n2273_3656# a_n2183_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X14 a_n578_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X15 vdd I_P_AMPLIFY a_n578_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X16 gf180mcu_gnd gf180mcu_gnd m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X17 m1_n66_490# gf180mcu_gnd gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X18 vdd a_n578_4056# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X19 m1_n668_3591# a_n578_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X20 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X21 m1_n2273_3656# a_n2183_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X22 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X23 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X24 vdd a_n578_4056# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X25 m1_n668_3591# a_n578_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X26 vdd a_n2183_4056# m1_n2273_3656# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X27 m1_n2273_3656# a_n2183_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X28 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X29 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X30 vdd a_n578_4056# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X31 m1_n668_3591# a_n578_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X32 vdd a_n578_4056# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X33 m1_n668_3591# a_n578_4056# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X34 a_n2779_1802# a_n648_2443# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X35 m1_n668_3591# a_n648_2443# a_n2779_1802# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X36 a_n2779_1802# a_n648_2443# m1_n668_3591# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X37 m1_n668_3591# a_n648_2443# a_n2779_1802# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X38 a_n648_2443# a_n2779_1802# m1_n2273_3656# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X39 m1_n2273_3656# a_n2779_1802# a_n648_2443# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X40 a_n648_2443# a_n2779_1802# m1_n2273_3656# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X41 m1_n2273_3656# a_n2779_1802# a_n648_2443# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X42 a_n3753_1803# a_n2779_1802# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X43 a_n3753_1803# a_n2779_1802# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X44 vdd lib_inv2_0/a_n902_230# o_outp vdd pfet_03v3 ad=0 pd=0 as=41600 ps=1808 w=400 l=28
+X45 o_outp lib_inv2_0/a_n902_230# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X46 o_outp lib_inv2_0/a_n902_230# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X47 vdd lib_inv2_0/a_n902_230# o_outp vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X48 gf180mcu_gnd lib_inv2_0/a_n902_230# o_outp gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=20800 ps=1008 w=200 l=28
+X49 o_outp lib_inv2_0/a_n902_230# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X50 o_outp lib_inv2_0/a_n902_230# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X51 gf180mcu_gnd lib_inv2_0/a_n902_230# o_outp gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X52 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X53 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X54 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X55 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X56 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X57 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X58 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X59 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X60 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X61 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X62 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X63 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X64 m1_n668_3591# a_n578_4056# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X65 gf180mcu_gnd a_n578_4056# m1_n668_3591# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X66 a_n2779_1802# a_n648_2443# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X67 gf180mcu_gnd a_n648_2443# a_n2779_1802# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X68 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X69 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X70 a_n2779_1802# a_n578_4056# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X71 gf180mcu_gnd a_n578_4056# a_n2779_1802# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X72 gf180mcu_gnd gf180mcu_gnd m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X73 m1_n66_490# gf180mcu_gnd gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X74 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X75 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X76 m1_n2273_3656# a_n2183_4056# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X77 gf180mcu_gnd a_n2183_4056# m1_n2273_3656# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X78 gf180mcu_gnd a_n3753_1803# o_outn gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=20800 ps=1008 w=200 l=28
+X79 o_outn a_n3753_1803# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X80 o_outn a_n3753_1803# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X81 gf180mcu_gnd a_n3753_1803# o_outn gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X82 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X83 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X84 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X85 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X86 a_n648_2443# a_n2183_4056# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X87 gf180mcu_gnd a_n2183_4056# a_n648_2443# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X88 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X89 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X90 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X91 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X92 a_n648_2443# a_n2779_1802# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X93 gf180mcu_gnd a_n2779_1802# a_n648_2443# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X94 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X95 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X96 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X97 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X98 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X99 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X100 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X101 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X102 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X103 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X104 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X105 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X106 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X107 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X108 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X109 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X110 gf180mcu_gnd I_P_AMPLIFY m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X111 m1_n66_490# I_P_AMPLIFY gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X112 lib_inv2_0/a_n902_230# a_n648_2443# vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=400 l=28
+X113 lib_inv2_0/a_n902_230# a_n648_2443# gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=200 l=28
+X114 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X115 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X116 a_n2183_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X117 vdd I_P_AMPLIFY a_n2183_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X118 gf180mcu_gnd gf180mcu_gnd m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X119 m1_n66_490# gf180mcu_gnd gf180mcu_gnd gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X120 a_n2183_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X121 vdd I_P_AMPLIFY a_n2183_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X122 a_n578_4056# I_INN m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X123 m1_n66_490# I_INN a_n578_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X124 a_n2183_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X125 vdd I_P_AMPLIFY a_n2183_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X126 a_n2183_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X127 vdd I_P_AMPLIFY a_n2183_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X128 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X129 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X130 a_n578_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X131 vdd I_P_AMPLIFY a_n578_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X132 a_n2183_4056# I_INP m1_n66_490# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X133 m1_n66_490# I_INP a_n2183_4056# gf180mcu_gnd nfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X134 a_n578_4056# I_P_AMPLIFY vdd vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+X135 vdd I_P_AMPLIFY a_n578_4056# vdd pfet_03v3 ad=0 pd=0 as=0 ps=0 w=100 l=28
+C0 vdd a_n2183_4056# 3.01fF
+C1 vdd I_P_AMPLIFY 4.77fF
+C2 vdd a_n578_4056# 3.05fF
+C3 a_n648_2443# a_n2779_1802# 2.02fF
+C4 vdd gf180mcu_gnd 52.19fF
+C5 I_INN gf180mcu_gnd 2.58fF
+C6 I_INP gf180mcu_gnd 2.42fF
+C7 m1_n66_490# gf180mcu_gnd 4.98fF $ **FLOATING
+C8 I_P_AMPLIFY gf180mcu_gnd 5.58fF
+.ends
