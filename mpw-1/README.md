@@ -2,13 +2,21 @@
 
 This directory contains the first Multi-Project Wafer (MPW-1) tapeout of OpenFASOC-generated temperature sensors in SkyWater 130nm technology.
 
+## Tapeout Information
+
+- **Shuttle**: Google Open MPW-1
+- **Process**: SkyWater 130nm (SKY130)
+- **Submission**: 2020
+- **Fabrication**: 2021
+- **Status**: Manufactured, tested, and characterized
+
 ## Contents
 
 - **testsetup/**: Complete automated test setup with Python scripts, measurement results, and comprehensive documentation
 
 ## Overview
 
-This tapeout features 64 OpenFASOC-generated temperature sensor instances fabricated in SkyWater 130nm. The project provides a fully open-source test setup solution that is highly automated with Python and open-source libraries.
+This tapeout features 64 OpenFASOC-generated temperature sensor instances fabricated in SkyWater 130nm. The project provides a fully open-source test setup solution that is highly automated with Python and open-source libraries. This work demonstrates comprehensive design space exploration using autonomous analog generation and represents one of the first successful tapeouts using the open-source SkyWater PDK.
 
 ## Key Features
 
@@ -41,13 +49,24 @@ For detailed information about:
 
 Please see the [testsetup README](testsetup/README.md).
 
-## Author
+## Authors
 
-**Qirui Zhang** - University of Michigan, Ann Arbor
+- **Qirui Zhang** - University of Michigan, Ann Arbor (Lead, Test Setup)
+- **Wei Duan** - University of Michigan, Ann Arbor
+- **Tim Edwards** - efabless
+- **Mehdi Saligane** - University of Michigan, Ann Arbor (PI)
+
+## Publications
+
+**Q. Zhang et al.**, "An open-source and autonomous temperature sensor generator verified with 64 instances in SkyWater 130 nm for comprehensive design space exploration," *IEEE Solid-State Circuits Letters*, vol. 5, pp. 174-177, 2022.
+- DOI: [10.1109/LSSC.2022.3178710](https://doi.org/10.1109/LSSC.2022.3178710)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/9779492)
+
+This paper describes the complete flow from generator design to silicon characterization with 64 fabricated instances.
 
 ## Acknowledgements
 
-The author would like to thank Google and SkyWater for fabrication of the test chip.
+The authors would like to thank Google and SkyWater Technology Foundry for fabrication of the test chip through the Open MPW Shuttle program.
 
 ## License
 

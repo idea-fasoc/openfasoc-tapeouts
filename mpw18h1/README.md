@@ -2,11 +2,17 @@
 
 This tapeout features a complete analog front-end (AFE) chip designed for flexible laser-induced graphene sensor readout applications, fabricated in GlobalFoundries 180nm MCU process.
 
+## Tapeout Information
+
+- **Shuttle**: GlobalFoundries MPW18H1
+- **Process**: GlobalFoundries 180nm MCU (GF180MCU)
+- **Submission**: 2023
+- **Fabrication**: 2023-2024
+- **Status**: Manufactured, tested, and published
+
 ## Overview
 
-This chip demonstrates a complete sensor readout platform designed entirely with open-source tools on GF180MCU. It has been successfully demonstrated reading out flexible sensors for wearable applications, including strain/flex sensing and temperature monitoring.
-
-**Published in**: [IEEE Solid-State Circuits Magazine](https://ieeexplore.ieee.org/document/10571234)
+This chip demonstrates a complete sensor readout platform designed entirely with open-source tools on GF180MCU. It has been successfully demonstrated reading out flexible sensors for wearable applications, including strain/flex sensing and temperature monitoring. This work represents a significant advancement in open-source mixed-signal design, showing that complete analog front-end systems can be designed and fabricated using open PDKs and EDA tools.
 
 ## Key Features
 
@@ -56,17 +62,31 @@ Potential applications include:
 
 ## Authors
 
-**Saligane Research Group**
-- University of Michigan (original work)
-- Brown University (current)
+- **Anhang Li** - Brown University (Lead)
+- **Hongyi Wu** - Brown University
+- **Mallika Lingamguntla** - Brown University
+- **Ashbir Aviat Fadila** - Brown University
+- **Chanho Kye** - Brown University
+- **Arvind Balijepalli** - Brown University
+- **Mehdi Saligane** - Brown University (PI, formerly University of Michigan)
 
-## Publication
+## Publications
 
-For detailed schematics, measurement results, and complete design methodology, see the [IEEE SSCM paper](https://ieeexplore.ieee.org/document/10571234).
+**A. Li et al.**, "Rapid Prototyping of Laser-Induced Graphene Sensors With Open-Source Silicon: Paving the Way for Low-Cost and Robust Flexible Wearable Sensing," *IEEE Solid-State Circuits Magazine*, vol. 16, no. 2, pp. 49-57, 2024.
+- DOI: [10.1109/MSSC.2024.3390873](https://doi.org/10.1109/MSSC.2024.3390873)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10571234)
+
+This paper presents the complete design, fabrication, and validation of the GF180MCU analog front-end chip integrated with flexible laser-induced graphene sensors for wearable sensing applications.
+
+**Related Publications:**
+
+**H. Wu, A. Li, G. Kielian, and M. Saligane**, "LIG-OSS: Integrated Laser-Induced-Graphene Sensor and Open-Source Silicon Chip for an Affordable and Robust Wearable Sensing System with Precise Temperature, Humidity, and Multi-modal Capabilities," in *2024 IEEE 19th International Conference on Nano/Micro Engineered and Molecular System (NEMS)*, 2024.
+- DOI: [10.1109/NEMS60724.2024.10639526](https://doi.org/10.1109/NEMS60724.2024.10639526)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10639526)
 
 ## Acknowledgements
 
-This work was fabricated through the GF180MCU open-source shuttle program.
+This work was fabricated through the GF180MCU open-source shuttle program. The authors thank Google and GlobalFoundries for their support of the open-source PDK and fabrication access.
 
 ## License
 
