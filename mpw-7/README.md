@@ -9,6 +9,8 @@ This directory contains the Multi-Project Wafer 7 (MPW-7) tapeout featuring test
 - **Submission**: 2022
 - **Fabrication**: 2022
 - **Status**: Manufactured
+- **Submission Repository**: [foss-eda-tools MPW-007 slot-009](https://foss-eda-tools.googlesource.com/third_party/shuttle/sky130/mpw-007/slot-009)
+- **Note**: The NIST Nanofab submission on MPW-7 (slot-009) included structures from this tapeout series. See [Nanofab](../Nanofab/) directory for details.
 
 ## Overview
 

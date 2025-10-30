@@ -9,6 +9,7 @@ This directory contains the first Multi-Project Wafer (MPW-1) tapeout of OpenFAS
 - **Submission**: 2020
 - **Fabrication**: 2021
 - **Status**: Manufactured, tested, and characterized
+- **Submission Repository**: [foss-eda-tools MPW-001 slot-011](https://foss-eda-tools.googlesource.com/third_party/shuttle/sky130/mpw-001/slot-011)
 
 ## Contents
 

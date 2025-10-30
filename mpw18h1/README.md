@@ -9,6 +9,7 @@ This tapeout features a complete analog front-end (AFE) chip designed for flexib
 - **Submission**: 2023
 - **Fabrication**: 2023-2024
 - **Status**: Manufactured, tested, and published
+- **Submission Repository**: [foss-eda-tools MPW-18H1 slot-004](https://foss-eda-tools.googlesource.com/third_party/shuttle/gf180mcu/mpw-18h1/slot-004)
 
 ## Overview
 

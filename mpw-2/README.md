@@ -9,6 +9,7 @@ This directory contains the Multi-Project Wafer 2 (MPW-2) tapeout of OpenFASOC-g
 - **Submission**: 2021
 - **Fabrication**: 2021-2022
 - **Status**: Manufactured
+- **Submission Repository**: [foss-eda-tools MPW-002 slot-040](https://foss-eda-tools.googlesource.com/third_party/shuttle/sky130/mpw-002/slot-040)
 
 ## Overview
 

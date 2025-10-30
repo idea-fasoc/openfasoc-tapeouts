@@ -6,9 +6,10 @@ This directory contains the NIST Nanofab Accelerator program tapeout featuring O
 
 - **Program**: NIST Nanofab Accelerator
 - **Process**: SkyWater 130nm (SKY130)
-- **Submission**: 2023
+- **Submission**: 2023 (via Google Open MPW-7)
 - **Fabrication**: 2023-2024
 - **Status**: Manufactured
+- **Submission Repository**: [foss-eda-tools MPW-007 slot-009](https://foss-eda-tools.googlesource.com/third_party/shuttle/sky130/mpw-007/slot-009)
 
 ## Overview
 
