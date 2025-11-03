@@ -83,8 +83,6 @@ This paper presents the complete design, fabrication, and validation of the GF18
 **Related Publications:**
 
 **H. Wu, A. Li, G. Kielian, and M. Saligane**, "LIG-OSS: Integrated Laser-Induced-Graphene Sensor and Open-Source Silicon Chip for an Affordable and Robust Wearable Sensing System with Precise Temperature, Humidity, and Multi-modal Capabilities," in *2024 IEEE 19th International Conference on Nano/Micro Engineered and Molecular System (NEMS)*, 2024.
-- DOI: [10.1109/NEMS60724.2024.10639526](https://doi.org/10.1109/NEMS60724.2024.10639526)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10639526)
 
 ## Acknowledgements
 
