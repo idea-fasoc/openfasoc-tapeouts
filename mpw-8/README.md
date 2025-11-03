@@ -36,8 +36,8 @@ This tapeout contains additional test structures for characterizing circuit beha
 ## Related Publications
 
 **A. Li et al.**, "Unlocking Circuits for Quantum With Open Source Silicon: A first look at measured open source silicon results at 4 K," *IEEE Solid-State Circuits Magazine*, vol. 16, no. 2, pp. 39-48, 2024.
-- DOI: [10.1109/MSSC.2024.3390872](https://doi.org/10.1109/MSSC.2024.3390872)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10530621)
+- DOI: [10.1109/MSSC.2024.3385734](https://doi.org/10.1109/MSSC.2024.3385734)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10584405)
 
 This paper presents the first measured results from open-source silicon test structures at cryogenic temperatures, demonstrating the viability of open PDKs for quantum and cryogenic applications.
 
