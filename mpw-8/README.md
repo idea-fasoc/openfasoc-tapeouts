@@ -48,8 +48,8 @@ This paper presents the first measured results from open-source silicon test str
 Comprehensive measurement database of SKY130 device primitives at cryogenic temperatures.
 
 **A. Akturk, A. Tripathi, and M. Saligane**, "Cryogenic modeling for open-source process design kit technology," in *2023 IEEE BiCMOS and Compound Semiconductor Integrated Circuits and Technology Symposium (BCICTS)*, 2023.
-- DOI: [10.1109/BCICTS58340.2023.10352971](https://doi.org/10.1109/BCICTS58340.2023.10352971)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10352971)
+- DOI: [10.1109/BCICTS54660.2023.10310944](https://doi.org/10.1109/BCICTS54660.2023.10310944)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10310944)
 
 Device modeling framework for cryogenic operation in open-source PDKs.
 

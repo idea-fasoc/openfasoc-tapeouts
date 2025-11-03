@@ -77,16 +77,16 @@ This tapeout features 10 different LDO variants generated using the OpenFASOC di
 ## Publications
 
 **Y. K. Cherivirala, M. Saligane, and D. D. Wentzloff**, "An open source compatible framework to fully autonomous digital ldo generation," in *2023 IEEE International Symposium on Circuits and Systems (ISCAS)*, Monterey, CA, USA, 2023, pp. 1-5.
-- DOI: [10.1109/ISCAS46773.2023.10182035](https://doi.org/10.1109/ISCAS46773.2023.10182035)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10182035)
+- DOI: [10.1109/ISCAS46773.2023.10181884](https://doi.org/10.1109/ISCAS46773.2023.10181884)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10181884)
 
 This paper describes the OpenFASOC LDO generator framework and its application to fully autonomous digital LDO design.
 
 ## Related Work
 
 **T. Ajayi et al.**, "An open-source framework for autonomous SoC design with analog block generation," in *2020 IFIP/IEEE 28th International Conference on Very Large Scale Integration (VLSI-SoC)*, 2020, pp. 39-44.
-- DOI: [10.1109/VLSI-SoC46417.2020.9344073](https://doi.org/10.1109/VLSI-SoC46417.2020.9344073)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/9344073)
+- DOI: [10.1109/VLSI-SOC46417.2020.9344104](https://doi.org/10.1109/VLSI-SOC46417.2020.9344104)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/9344104)
 
 This paper describes the overall OpenFASOC framework used for this tapeout.
 
