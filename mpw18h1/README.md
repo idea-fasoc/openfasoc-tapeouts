@@ -75,16 +75,14 @@ Potential applications include:
 ## Publications
 
 **A. Li et al.**, "Rapid Prototyping of Laser-Induced Graphene Sensors With Open-Source Silicon: Paving the Way for Low-Cost and Robust Flexible Wearable Sensing," *IEEE Solid-State Circuits Magazine*, vol. 16, no. 2, pp. 49-57, 2024.
-- DOI: [10.1109/MSSC.2024.3390873](https://doi.org/10.1109/MSSC.2024.3390873)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10571234)
+- DOI: [10.1109/MSSC.2024.3380586](https://doi.org/10.1109/MSSC.2024.3380586)
+- [IEEE Xplore](https://ieeexplore.ieee.org/document/10584418)
 
 This paper presents the complete design, fabrication, and validation of the GF180MCU analog front-end chip integrated with flexible laser-induced graphene sensors for wearable sensing applications.
 
 **Related Publications:**
 
 **H. Wu, A. Li, G. Kielian, and M. Saligane**, "LIG-OSS: Integrated Laser-Induced-Graphene Sensor and Open-Source Silicon Chip for an Affordable and Robust Wearable Sensing System with Precise Temperature, Humidity, and Multi-modal Capabilities," in *2024 IEEE 19th International Conference on Nano/Micro Engineered and Molecular System (NEMS)*, 2024.
-- DOI: [10.1109/NEMS60724.2024.10639526](https://doi.org/10.1109/NEMS60724.2024.10639526)
-- [IEEE Xplore](https://ieeexplore.ieee.org/document/10639526)
 
 ## Acknowledgements
 

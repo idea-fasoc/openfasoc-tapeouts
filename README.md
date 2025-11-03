@@ -91,7 +91,7 @@ This tapeout demonstrates the integration of OpenFASOC generators with OpenROAD-
   - Capacitive DAC and switched-capacitance circuits
   - Bias generation circuits
 - **Applications**: Wearable strain/flex sensors, temperature monitoring, multi-modal sensing
-- **Publication**: [IEEE Solid-State Circuits Magazine](https://ieeexplore.ieee.org/document/10571234)
+- **Publication**: [IEEE Solid-State Circuits Magazine](https://ieeexplore.ieee.org/document/10584418)
 - **Status**: Manufactured, tested, and published
 
 This chip demonstrates a complete sensor readout platform for flexible laser-induced graphene sensors, designed entirely with open-source tools and successfully validated in real applications.
