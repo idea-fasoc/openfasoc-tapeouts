@@ -12,6 +12,8 @@ Folders
 
 **src** : contains the circuit netlist
 
+**gds** : contains the comparator gds
+
 Comparator Topologies
 ***************
 
